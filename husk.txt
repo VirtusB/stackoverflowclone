@@ -1,0 +1,3 @@
+Single actions controllers can be created with --invokable flag instead of creating __invoke method manually
+
+Some info was deprecated (FontAwesome npm and JS import)
