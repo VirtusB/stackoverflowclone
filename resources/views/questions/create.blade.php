@@ -20,7 +20,7 @@
 
                             <div class="form-group">
                                 <label for="question-title">Title</label>
-                                <input autocomplete="off" type="text" name="title" id="question-title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}">
+                                <input value="{{ old('title') }}" autocomplete="off" type="text" name="title" id="question-title" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}">
 
                                 @if ($errors->has('title'))
                                     <div class="invalid-feedback">
@@ -31,7 +31,7 @@
 
                             <div class="form-group">
                                 <label for="question-body">Body</label>
-                                <textarea autocomplete="off" name="body" id="question-body" class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}" rows="10"></textarea>
+                                <textarea autocomplete="off" name="body" id="question-body" class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}" rows="10">{{ old('body') }}</textarea>
 
                                 @if ($errors->has('body'))
                                     <div class="invalid-feedback">
