@@ -10,13 +10,18 @@ class Question extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
-
-        // $test = Question::find(1);
-        // $email = $test->user->email;
     }
 
     public function setTitleAttribute($value): void {
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);
+    }
+
+    public function getUrlAttribute() {
+        return route('questions.show', $this->id);
+    }
+
+    public function getCreatedDateAttribute() {
+        return $this->created_at->diffForHumans();
     }
 }
