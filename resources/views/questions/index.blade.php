@@ -15,8 +15,8 @@
                     </div>
 
                     <div class="card-body">
-                        @include ('layouts._messages')
-                        @foreach ($questions as $question)
+                        @include('layouts._messages')
+                        @foreach($questions as $question)
                             <div class="media">
                                 <div class="d-flex flex-column counters">
                                     <div class="vote">
@@ -36,6 +36,11 @@
                                         </h3>
                                         <div class="ml-auto">
                                             <a class="btn btn-sm btn-outline-info" href="{{ route('questions.edit', $question->id) }}">Edit</a>
+                                            <form class="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
                                         </div>
                                     </div>
 
