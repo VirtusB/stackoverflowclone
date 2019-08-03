@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AskQuestionRequest;
+use App\Http\Requests\EditQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class QuestionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  AskQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AskQuestionRequest $request)
@@ -64,19 +65,21 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('questions.edit', compact('question'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  EditQuestionRequest  $request
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(EditQuestionRequest $request, Question $question)
     {
-        //
+        $question->update($request->only('title', 'body'));
+
+        return redirect()->route('questions.index')->with('success', 'Your question was updated.');
     }
 
     /**
