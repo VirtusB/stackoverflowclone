@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
 {
+    public function __construct() {
+        // Make sure users are logged in, before they're able to create questions
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -67,6 +72,7 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
+        $this->authorize('update', $question);
         return view('questions.edit', compact('question'));
     }
 
@@ -79,6 +85,8 @@ class QuestionsController extends Controller
      */
     public function update(EditQuestionRequest $request, Question $question)
     {
+        $this->authorize('update', $question);
+
         $question->update($request->only('title', 'body'));
 
         return redirect()->route('questions.index')->with('success', 'Your question was updated.');
@@ -92,6 +100,8 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
+        $this->authorize('delete', $question);
+
         $question->delete();
 
         return redirect()->route('questions.index')->with('success', 'Your question was deleted.');
