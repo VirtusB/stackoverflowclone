@@ -35,13 +35,17 @@
                                             <a href="{{ $question->url }}">{{ $question->title }}</a>
                                         </h3>
                                         <div class="ml-auto">
+                                            {{-- @can if shorthand for Auth::user()->can('update', $question) --}}
                                             @can ('update', $question)
                                                 <a class="btn btn-sm btn-outline-info" href="{{ route('questions.edit', $question->id) }}">Edit</a>
                                             @endcan
 
                                             @can ('delete', $question)
                                                 <form class="form-delete" action="{{ route('questions.destroy', $question->id) }}" method="POST">
+                                                    {{-- Since DELETE is not a valid HTML value to assign a form tag, method has to be added to the form as an input--}}
                                                     @method('DELETE')
+
+                                                    {{-- Add token to form to prevent Cross-Site Request Forgery --}}
                                                     @csrf
                                                     <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
                                                 </form>
@@ -59,7 +63,7 @@
                             <hr>
                         @endforeach
 
-
+                        {{-- Adds pagination links --}}
                         {{ $questions->links() }}
 
                     </div>

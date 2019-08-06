@@ -1,3 +1,5 @@
+{{-- This file is a partial --}}
+
 @csrf
 
 <div class="form-group">

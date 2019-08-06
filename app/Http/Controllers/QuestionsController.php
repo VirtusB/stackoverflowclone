@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AskQuestionRequest;
 use App\Http\Requests\EditQuestionRequest;
 use App\Question;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class QuestionsController extends Controller
@@ -46,6 +47,7 @@ class QuestionsController extends Controller
      */
     public function store(AskQuestionRequest $request)
     {
+        // Store question in DB. Use 'title' and 'body' from the request.
         $request->user()->questions()->create($request->only('title', 'body'));
 
         return redirect()->route('questions.index')->with('success', 'Your question was submitted.');
@@ -59,6 +61,7 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
+        // This increments 'views' column on a question by 1
         $question->increment('views');
 
         return view('questions.show', compact('question'));
@@ -73,6 +76,7 @@ class QuestionsController extends Controller
     public function edit(Question $question)
     {
         $this->authorize('update', $question);
+
         return view('questions.edit', compact('question'));
     }
 

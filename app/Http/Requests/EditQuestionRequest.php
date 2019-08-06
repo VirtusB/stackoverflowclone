@@ -23,6 +23,8 @@ class EditQuestionRequest extends FormRequest
      */
     public function rules()
     {
+        // Title is required and max length of 255 characters
+        // Body is required
         return [
             'title' => 'required|max:255',
             'body' => 'required'

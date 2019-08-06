@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -27,10 +31,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Return all the questions belonging to the user
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function questions() {
         return $this->hasMany(Question::class);
     }
 
+    /**
+     * Return full URL of user
+     * @return string
+     */
     public function getUrlAttribute() {
         //return route('questions.show', $this->id);
         return '#';
