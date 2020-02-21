@@ -35,6 +35,6 @@ class QuestionPolicy
         // Check that the user ID matches question ID
         // Also check that the question doesn't have any answers
         // If the question has one answer or more, the question can't be deleted
-        return $user->id === $question->user_id && $question->answers < 1;
+        return $user->id === $question->user_id && $question->answers_count < 1;
     }
 }
