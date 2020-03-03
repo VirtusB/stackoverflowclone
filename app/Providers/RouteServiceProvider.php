@@ -27,7 +27,7 @@ class RouteServiceProvider extends ServiceProvider
 
         // Bind to slug for questions.show, to make the URL more SEO friendly
         Route::bind('slug', function($slug) {
-            return Question::where('slug', $slug)->first() ?? abort(404);
+            return Question::with('answers.user')->where('slug', $slug)->first() ?? abort(404);
         });
 
         parent::boot();

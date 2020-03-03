@@ -15,6 +15,14 @@ class Answer extends Model
     }
 
     /**
+     * Return the creation date of the question, formatted to be easily readable, ex. "20 minutes ago"
+     * @return mixed
+     */
+    public function getCreatedDateAttribute() {
+        return $this->created_at->diffForHumans();
+    }
+
+    /**
      * Return the body of the question, parsed to HTML
      * @return string
      */
