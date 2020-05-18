@@ -6,10 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
+    /**
+     * Returns the question that the answer belongs to
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function question() {
         return $this->belongsTo(Question::class);
     }
 
+    /**
+     * Returns the user who created the answer
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -30,9 +38,13 @@ class Answer extends Model
         return \Parsedown::instance()->text($this->body);
     }
 
+    /**
+     * boot method is used to override default behaviour of an eloquent model
+     */
     public static function boot() {
         parent::boot();
 
+        // each time an answer is created, update the answers_count on the question. "created" is an event
         static::created(function ($answer) {
             $answer->question->increment('answers_count'); // save method is automatically called when calling increment
         });

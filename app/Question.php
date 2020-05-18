@@ -77,6 +77,10 @@ class Question extends Model
         return \Parsedown::instance()->text($this->body);
     }
 
+    /**
+     * Returns all the answers for the question
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function answers() {
         return $this->hasMany(Answer::class);
     }

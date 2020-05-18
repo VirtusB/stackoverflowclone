@@ -48,15 +48,22 @@ class User extends Authenticatable
         return '#';
     }
 
+    /**
+     * Returns all answers the user has created
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function answers() {
         return $this->hasMany(Answer::class);
     }
 
+    /**
+     * Returns an avatar from gravatar.com
+     * @return string
+     */
     public function getAvatarAttribute() {
         $email = $this->email;
         $size = 32;
 
         return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
     }
-
 }
